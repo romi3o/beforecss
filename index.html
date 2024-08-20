@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운명의 롤모델 찾기 - 이름 입력</title>
+    <!-- 여기부터 css 수정하면 됨 -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+        <!-- 여기까지 css 수정하면 됨 -->
+</head>
+<body>
+    <h1>운명의 롤모델 찾기</h1>
+    <h2>이름을 입력하세요:</h2>
+    <input type="text" id="name" name="name">
+    <br><br>
+    <button onclick="nextPage()">다음</button>
+
+    <script>
+        function nextPage() {
+            const name = document.getElementById("name").value;
+            if (name) {
+                localStorage.setItem('mbti_name', name);
+                window.location.href = "questions.html?page=1";
+            } else {
+                alert("이름을 입력하세요.");
+            }
+        }
+    </script>
+</body>
+</html>

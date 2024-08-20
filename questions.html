@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운명의 롤모델 찾기 - 질문</title>
+        <!-- 여기부터 css 수정하면 됨 -->
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f4f4f4;
+            }
+    
+            .container {
+                max-width: 600px;
+                margin: auto;
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+    
+            h1, h2 {
+                text-align: center;
+            }
+    
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                margin: 20px 0;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+    
+            button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+            }
+    
+            button:hover {
+                background-color: #45a049;
+            }
+        </style>
+        <!-- 여기까지 css 수정하면 됨 -->
+</head>
+<body>
+    <h1>운명의 롤모델 찾기</h1>
+
+    <h2>질문 <span id="page-number"></span> / 13</h2>
+
+    <div id="question-container">
+        <!-- 질문 내용이 여기에 삽입 -->
+    </div>
+
+    <button onclick="nextQuestion()">다음</button>
+
+    <script>
+        const questions = [
+            {
+                type: "interest",
+                question: "관심있는 분야를 선택하세요:",
+                options: ["정치", "경제", "경영", "IT", "사회", "철학", "심리", "역사", "과학", "환경", "예술"]
+            },
+            { question: "어떠한 문제에 있어 생각하는 방법은?", A: "내가 알고있던 사실에 대입하여 생각함", B: "모든 문제에 자기자신을 대입하여 생각함", valueA: "T", valueB: "F" },
+            { question: "여가 시간을 보낼 때:", A: "친구들과 어울리는 것을 즐긴다.", B: "혼자만의 시간을 더 소중하게 생각한다.", valueA: "E", valueB: "I" },
+            { question: "문제를 해결할 때:", A: "체계적인 접근을 선호한다.", B: "창의적이고 유연한 접근을 선호한다.", valueA: "J", valueB: "P" },
+            { question: "변화를 대할 때:", A: "안정적이고 예측 가능한 것을 선호한다.", B: "변화와 새로운 경험을 즐긴다.", valueA: "J", valueB: "P" },
+            { question: "큰 결정을 내릴 때:", A: "다른 사람들의 의견을 듣고 결정한다.", B: "혼자서 깊이 생각하고 결정한다.", valueA: "E", valueB: "I" },
+            { question: "규칙이란 무엇인가?", A: "지켜야 하는 것", B: "나를 억압하는 것", valueA: "S", valueB: "N" },
+            { question: "나를 더 잘 표현하는 것은?", A: "편견이 없고 심플하다", B: "따뜻하고 몽글몽글하다", valueA: "T", valueB: "F" },
+            { question: "토론에 있어서 의견 차와 갈등은?", A: "의견을 추합하는 데에 있어서 유용한 것", B: "피할 수 있다면 피하는 게 좋음", valueA: "T", valueB: "F" },
+            { question: "스트레스를 받을 때:", A: "다른 사람들과 대화하면서 풀린다.", B: "혼자만의 시간을 가지면서 회복한다.", valueA: "E", valueB: "I" },
+            { question: "한 가지 사물에 대해 설명하라고 한다면?", A: "지금 눈에 보이는 것에 집중해 간결하게 설명함", B: "사물과 관련된 경험과 상상을 연관지어 설명함", valueA: "S", valueB: "N" },
+            { question: "프로젝트를 진행할 때:", A: "처음부터 끝까지 계획을 세우고 진행한다.", B: "상황에 따라 유연하게 대처하며 진행한다.", valueA: "J", valueB: "P" },
+            { question: "나에게 더 흥미있는 것은?", A: "내가 잘 알고있는 주제에 대해 이야기 할 때", B: "잘 몰랐던 주제에 대해 새롭게 알게 될 때", valueA: "S", valueB: "N" }
+        ];
+
+        let currentPage = new URLSearchParams(window.location.search).get('page');
+        if (!currentPage) currentPage = 1;
+
+        document.getElementById('page-number').innerText = currentPage;
+
+        const question = questions[currentPage - 1];
+        if (question.type === "interest") {
+            document.getElementById('question-container').innerHTML = `
+                <p>${question.question}</p>
+                <select id="interest">
+                    ${question.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+            `;
+        } else if (question) {
+            document.getElementById('question-container').innerHTML = `
+                <p>${question.question}</p>
+                <input type="radio" id="q${currentPage}a" name="question" value="${question.valueA}">
+                <label for="q${currentPage}a">${question.A}</label><br>
+                <input type="radio" id="q${currentPage}b" name="question" value="${question.valueB}">
+                <label for="q${currentPage}b">${question.B}</label>
+            `;
+        }
+
+        function nextQuestion() {
+            if (question.type === "interest") {
+                const interest = document.getElementById('interest').value;
+                localStorage.setItem('interest', interest);
+            } else {
+                const answer = document.querySelector('input[name="question"]:checked');
+                if (answer) {
+                    const mbtiResult = JSON.parse(localStorage.getItem('mbti_result')) || { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, P: 0, J: 0 };
+                    mbtiResult[answer.value]++;
+                    localStorage.setItem('mbti_result', JSON.stringify(mbtiResult));
+                } else {
+                    alert("답변을 선택하세요.");
+                    return;
+                }
+            }
+
+            if (currentPage < questions.length) {
+                window.location.href = `questions.html?page=${parseInt(currentPage) + 1}`;
+            } else {
+                window.location.href = "result.html";
+            }
+        }
+    </script>
+</body>
+</html>
