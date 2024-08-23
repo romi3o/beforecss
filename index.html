@@ -9,55 +9,95 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            background-color: #000000; 
+            color: #ffffff; 
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-sizing: border-box;
         }
 
         .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
+            width: 100%;
+            max-width: 400px; 
+            background: rgba(255, 255, 255, 0.8); 
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
+    
         }
-
         h1, h2 {
             text-align: center;
+            font-size: 2em; 
+            color: #f4f4f4;
         }
-
+        .image-stack {
+            text-align: center; 
+        }
+        .image-stack img {
+            max-width: 100%; 
+            height: auto; 
+            display: block; 
+            object-fit: contain;
+        }
+        .input-button {
+            display: flex; 
+            gap: 0;
+            margin-bottom: 800px;
+        }
         input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 20px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            
+            border: 1px solid rgb(255, 255, 255);
+            background-color: #000000;
             box-sizing: border-box;
+            font-size: 3em;
+            color: white;
+            border-radius: 10px 0 0 10px; 
+            flex: 1; 
+            max-width: 400%;
+            height: 150px;
         }
 
         button {
-            background-color: #4CAF50;
+            
+            border: 1px solid rgb(255, 255, 255);
+            border-radius: 0 10px 10px 0;
+            background-color: #000000;
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
             cursor: pointer;
-            width: 100%;
+            font-size: 3em;
+            box-sizing: border-box;
+            border-left: none;
+            width: 300px;
+            height: 150px;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #000000;
         }
+        button:active {
+            background-color: #000000;
+        }
+        
+
     </style>
         <!-- 여기까지 css 수정하면 됨 -->
 </head>
 <body>
-    <h1>운명의 롤모델 찾기</h1>
-    <h2>이름을 입력하세요:</h2>
-    <input type="text" id="name" name="name">
-    <br><br>
-    <button onclick="nextPage()">다음</button>
+    
+    <h1></h1>
+    <h2></h2>
+    <div class=""image-stack">
+        <img src="Main.png" alt="이미지 1">
+    </div>
+    <div class="input-button">
+        <input type="text" id="name" name="name" placeholder="이름 입력">
+        <button onclick="nextPage()">이름 입력</button>
+    </div>
 
     <script>
         function nextPage() {
